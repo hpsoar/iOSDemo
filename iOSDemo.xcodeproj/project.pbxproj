@@ -18,10 +18,19 @@
 		123454431949BFCC00E9170F /* step_round_back_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 123454351949BFCC00E9170F /* step_round_back_color.png */; };
 		123454441949BFCC00E9170F /* step_round_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 123454361949BFCC00E9170F /* step_round_back.png */; };
 		123454461949BFCC00E9170F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1234543A1949BFCC00E9170F /* ViewController.m */; };
-		123454471949BFCC00E9170F /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1234543C1949BFCC00E9170F /* ViewController2.m */; };
+		123454471949BFCC00E9170F /* PedometerTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1234543C1949BFCC00E9170F /* PedometerTestController.m */; };
 		1234544A1949C38400E9170F /* AnimatedCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123454481949C38400E9170F /* AnimatedCircleViewController.m */; };
 		1234544D1949C54600E9170F /* AccelerometerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1234544B1949C54600E9170F /* AccelerometerController.xib */; };
 		123454561949C5BB00E9170F /* AccelerometerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123454541949C5BB00E9170F /* AccelerometerController.m */; };
+		12345459194A041800E9170F /* AltitudeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12345458194A041800E9170F /* AltitudeViewController.m */; };
+		12345467194A8E4D00E9170F /* AccelerometerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1234545E194A8E4D00E9170F /* AccelerometerFilter.m */; };
+		12345468194A8E4D00E9170F /* ChunyuPedometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 12345460194A8E4D00E9170F /* ChunyuPedometer.m */; };
+		12345469194A8E4D00E9170F /* LocalMinMaxQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 12345462194A8E4D00E9170F /* LocalMinMaxQueue.m */; };
+		1234546A194A8E4D00E9170F /* MathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 12345464194A8E4D00E9170F /* MathUtils.m */; };
+		123822361950280E00C97766 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123822351950280E00C97766 /* PageViewController.m */; };
+		1238223C1951278E00C97766 /* CYPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1238223B1951278E00C97766 /* CYPageViewController.m */; };
+		1287296C194D932500FFA0CD /* ShadowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1287296B194D932500FFA0CD /* ShadowViewController.m */; };
+		1287296F194DA14000FFA0CD /* TableInsetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1287296E194DA14000FFA0CD /* TableInsetViewController.m */; };
 		12B23AC3191605B500BD14B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B23AC2191605B500BD14B6 /* Foundation.framework */; };
 		12B23AC5191605B500BD14B6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B23AC4191605B500BD14B6 /* CoreGraphics.framework */; };
 		12B23AC7191605B500BD14B6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B23AC6191605B500BD14B6 /* UIKit.framework */; };
@@ -58,13 +67,31 @@
 		123454361949BFCC00E9170F /* step_round_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = step_round_back.png; path = iOSDemo/step_round_back.png; sourceTree = SOURCE_ROOT; };
 		123454391949BFCC00E9170F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = iOSDemo/ViewController.h; sourceTree = SOURCE_ROOT; };
 		1234543A1949BFCC00E9170F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = iOSDemo/ViewController.m; sourceTree = SOURCE_ROOT; };
-		1234543B1949BFCC00E9170F /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController2.h; path = iOSDemo/ViewController2.h; sourceTree = SOURCE_ROOT; };
-		1234543C1949BFCC00E9170F /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController2.m; path = iOSDemo/ViewController2.m; sourceTree = SOURCE_ROOT; };
+		1234543B1949BFCC00E9170F /* PedometerTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PedometerTestController.h; path = iOSDemo/PedometerTestController.h; sourceTree = SOURCE_ROOT; };
+		1234543C1949BFCC00E9170F /* PedometerTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PedometerTestController.m; path = iOSDemo/PedometerTestController.m; sourceTree = SOURCE_ROOT; };
 		123454481949C38400E9170F /* AnimatedCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedCircleViewController.m; path = iOSDemo/AnimatedCircleViewController.m; sourceTree = SOURCE_ROOT; };
 		123454491949C38400E9170F /* AnimatedCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedCircleViewController.h; path = iOSDemo/AnimatedCircleViewController.h; sourceTree = SOURCE_ROOT; };
 		1234544C1949C54600E9170F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = AccelerometerController.xib; sourceTree = "<group>"; };
 		123454541949C5BB00E9170F /* AccelerometerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccelerometerController.m; path = iOSDemo/AccelerometerController.m; sourceTree = SOURCE_ROOT; };
 		123454551949C5BB00E9170F /* AccelerometerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccelerometerController.h; path = iOSDemo/AccelerometerController.h; sourceTree = SOURCE_ROOT; };
+		12345457194A041800E9170F /* AltitudeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AltitudeViewController.h; sourceTree = "<group>"; };
+		12345458194A041800E9170F /* AltitudeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AltitudeViewController.m; sourceTree = "<group>"; };
+		1234545D194A8E4D00E9170F /* AccelerometerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerFilter.h; sourceTree = "<group>"; };
+		1234545E194A8E4D00E9170F /* AccelerometerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerFilter.m; sourceTree = "<group>"; };
+		1234545F194A8E4D00E9170F /* ChunyuPedometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChunyuPedometer.h; sourceTree = "<group>"; };
+		12345460194A8E4D00E9170F /* ChunyuPedometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChunyuPedometer.m; sourceTree = "<group>"; };
+		12345461194A8E4D00E9170F /* LocalMinMaxQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMinMaxQueue.h; sourceTree = "<group>"; };
+		12345462194A8E4D00E9170F /* LocalMinMaxQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMinMaxQueue.m; sourceTree = "<group>"; };
+		12345463194A8E4D00E9170F /* MathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtils.h; sourceTree = "<group>"; };
+		12345464194A8E4D00E9170F /* MathUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathUtils.m; sourceTree = "<group>"; };
+		123822341950280E00C97766 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		123822351950280E00C97766 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		1238223A1951278E00C97766 /* CYPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYPageViewController.h; path = iOSDemo/CYPageViewController.h; sourceTree = "<group>"; };
+		1238223B1951278E00C97766 /* CYPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYPageViewController.m; path = iOSDemo/CYPageViewController.m; sourceTree = "<group>"; };
+		1287296A194D932500FFA0CD /* ShadowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowViewController.h; sourceTree = "<group>"; };
+		1287296B194D932500FFA0CD /* ShadowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowViewController.m; sourceTree = "<group>"; };
+		1287296D194DA14000FFA0CD /* TableInsetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableInsetViewController.h; path = iOSDemo/TableInsetViewController.h; sourceTree = "<group>"; };
+		1287296E194DA14000FFA0CD /* TableInsetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableInsetViewController.m; path = iOSDemo/TableInsetViewController.m; sourceTree = "<group>"; };
 		12B23ABF191605B500BD14B6 /* iOSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12B23AC2191605B500BD14B6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		12B23AC4191605B500BD14B6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,9 +137,30 @@
 			path = iOSDemo/en.lproj;
 			sourceTree = SOURCE_ROOT;
 		};
+		1234545C194A8E4D00E9170F /* Pedometer */ = {
+			isa = PBXGroup;
+			children = (
+				1234545D194A8E4D00E9170F /* AccelerometerFilter.h */,
+				1234545E194A8E4D00E9170F /* AccelerometerFilter.m */,
+				1234545F194A8E4D00E9170F /* ChunyuPedometer.h */,
+				12345460194A8E4D00E9170F /* ChunyuPedometer.m */,
+				12345461194A8E4D00E9170F /* LocalMinMaxQueue.h */,
+				12345462194A8E4D00E9170F /* LocalMinMaxQueue.m */,
+				12345463194A8E4D00E9170F /* MathUtils.h */,
+				12345464194A8E4D00E9170F /* MathUtils.m */,
+			);
+			name = Pedometer;
+			path = iOSDemo/Pedometer;
+			sourceTree = "<group>";
+		};
 		12B23AB6191605B500BD14B6 = {
 			isa = PBXGroup;
 			children = (
+				1238223A1951278E00C97766 /* CYPageViewController.h */,
+				1238223B1951278E00C97766 /* CYPageViewController.m */,
+				1287296D194DA14000FFA0CD /* TableInsetViewController.h */,
+				1287296E194DA14000FFA0CD /* TableInsetViewController.m */,
+				1234545C194A8E4D00E9170F /* Pedometer */,
 				121DE167194826DB0046E66E /* IMG_0866.png */,
 				12B23AC8191605B500BD14B6 /* iOSDemo */,
 				12B23AEA191605B500BD14B6 /* TestTests */,
@@ -144,6 +192,8 @@
 		12B23AC8191605B500BD14B6 /* iOSDemo */ = {
 			isa = PBXGroup;
 			children = (
+				12345457194A041800E9170F /* AltitudeViewController.h */,
+				12345458194A041800E9170F /* AltitudeViewController.m */,
 				123454541949C5BB00E9170F /* AccelerometerController.m */,
 				123454551949C5BB00E9170F /* AccelerometerController.h */,
 				123454481949C38400E9170F /* AnimatedCircleViewController.m */,
@@ -159,9 +209,13 @@
 				123454361949BFCC00E9170F /* step_round_back.png */,
 				123454391949BFCC00E9170F /* ViewController.h */,
 				1234543A1949BFCC00E9170F /* ViewController.m */,
-				1234543B1949BFCC00E9170F /* ViewController2.h */,
-				1234543C1949BFCC00E9170F /* ViewController2.m */,
+				1234543B1949BFCC00E9170F /* PedometerTestController.h */,
+				1234543C1949BFCC00E9170F /* PedometerTestController.m */,
 				12B23AC9191605B500BD14B6 /* Supporting Files */,
+				1287296A194D932500FFA0CD /* ShadowViewController.h */,
+				1287296B194D932500FFA0CD /* ShadowViewController.m */,
+				123822341950280E00C97766 /* PageViewController.h */,
+				123822351950280E00C97766 /* PageViewController.m */,
 			);
 			path = iOSDemo;
 			sourceTree = "<group>";
@@ -301,12 +355,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				123454461949BFCC00E9170F /* ViewController.m in Sources */,
+				1287296F194DA14000FFA0CD /* TableInsetViewController.m in Sources */,
+				12345467194A8E4D00E9170F /* AccelerometerFilter.m in Sources */,
 				1234543D1949BFCC00E9170F /* AppDelegate.m in Sources */,
 				123454221949BF8000E9170F /* main.m in Sources */,
 				1234544A1949C38400E9170F /* AnimatedCircleViewController.m in Sources */,
+				1234546A194A8E4D00E9170F /* MathUtils.m in Sources */,
 				123454561949C5BB00E9170F /* AccelerometerController.m in Sources */,
-				123454471949BFCC00E9170F /* ViewController2.m in Sources */,
+				123822361950280E00C97766 /* PageViewController.m in Sources */,
+				1238223C1951278E00C97766 /* CYPageViewController.m in Sources */,
+				123454471949BFCC00E9170F /* PedometerTestController.m in Sources */,
+				12345459194A041800E9170F /* AltitudeViewController.m in Sources */,
 				123454401949BFCC00E9170F /* GradientViewController.m in Sources */,
+				12345468194A8E4D00E9170F /* ChunyuPedometer.m in Sources */,
+				12345469194A8E4D00E9170F /* LocalMinMaxQueue.m in Sources */,
+				1287296C194D932500FFA0CD /* ShadowViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,10 +507,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSDemo/Test-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/iOSDemo/Test-Info.plist";
 				PRODUCT_NAME = iOSDemo;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -459,10 +524,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSDemo/Test-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/iOSDemo/Test-Info.plist";
 				PRODUCT_NAME = iOSDemo;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

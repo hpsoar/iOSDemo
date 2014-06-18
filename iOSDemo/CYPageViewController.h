@@ -10,4 +10,8 @@
 
 @interface CYPageViewController : UIPageViewController
 
+@property (nonatomic, weak) id<UIScrollViewDelegate> scrollDelegate;
+
+@property (nonatomic, strong) UIViewController *currentViewController;
+
 @end

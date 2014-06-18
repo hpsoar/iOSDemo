@@ -7,6 +7,7 @@
 //
 
 #import "PageViewController.h"
+#import "CYPageViewController.h"
 
 @protocol TestDelegate <NSObject>
 
@@ -44,22 +45,24 @@
     [self.delegate controllerBecomesTarge:self];
 }
 
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    NSLog(@"didMoveToParentViewController");
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    NSLog(@"willMoveToParentViewController");
+}
+
 @end
 
 CGFloat R() {
     return (CGFloat)rand() / INT_MAX;
 }
 
-@interface PageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, TestDelegate, UIScrollViewDelegate>
+@interface PageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIPageViewController *pageController;
+@property (nonatomic, strong) CYPageViewController *pageController;
 @property (nonatomic, strong) NSMutableArray *controllers;
-@property (nonatomic, strong) UIViewController *targetController;
-@property (nonatomic, strong) UIViewController *currentViewController;
-@property (nonatomic) CGFloat previousOffset;
-
-@property (nonatomic) NSInteger pageOffset;
-@property (nonatomic) BOOL pageSwitched;
 
 @end
 
@@ -74,17 +77,12 @@ CGFloat R() {
     return self;
 }
 
-- (void)setCurrentViewController:(UIViewController *)currentViewController {
-    _currentViewController = currentViewController;
-    self.title = [NSString stringWithFormat:@"page %d", currentViewController.view.tag];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageController = [[CYPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
 
     self.pageController.view.frame = CGRectMake(0, 64, 320, 500);
     self.pageController.view.backgroundColor = [UIColor redColor];
@@ -97,108 +95,31 @@ CGFloat R() {
         MyViewController *controller = [MyViewController new];
         controller.view.tag = i;
         controller.view.backgroundColor = [UIColor colorWithRed:R() green:R() blue:R() alpha:1.0];
-        controller.delegate = self;
         [self.controllers addObject:controller];
     }
     
-    [self.pageController setViewControllers:@[self.controllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
-    for (UIView *v in self.pageController.view.subviews) {
-        if ([v isKindOfClass:[UIScrollView class]]) {
-            ((UIScrollView *)v).delegate = self;
-        }
-    }
-    self.currentViewController = self.pageController.viewControllers.firstObject;
+    self.pageController.currentViewController = self.controllers[0];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    if (viewController.view.tag == 4) return nil;
-    return self.controllers[viewController.view.tag + 1];
+    if (viewController.view.tag == 4) {
+        return nil;
+    }
+    else {
+        return self.controllers[viewController.view.tag + 1];
+    }
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    if (viewController.view.tag == 0) return nil;
-    return self.controllers[viewController.view.tag - 1];
+    if (viewController.view.tag == 0) {
+        return nil;
+    }
+    else {
+        return self.controllers[viewController.view.tag - 1];
+    }
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
-    if (completed) {
-        UIViewController *v1 = pageViewController.viewControllers.firstObject;
-        UIViewController *v2 = previousViewControllers.firstObject;
-        //NSLog(@"tag2: %d, %d", v1.view.tag, v2.view.tag);
-//        if (abs(v1.view.tag - v2.view.tag) > 1) {
-//            if (v1.view.tag < v2.view.tag) {
-//                [pageViewController setViewControllers:@[v2] direction:UIPageViewControllerNavigationDirectionForward animated:NO  completion:nil];
-//            }
-//            else {
-//                [pageViewController setViewControllers:@[v2] direction:UIPageViewControllerNavigationDirectionReverse animated:NO  completion:nil];
-//                
-//            }
-//        }
-        
-    }
-    [self switchPage:@"trans"];
-    NSLog(@"here: tag: %d", [self.pageController.viewControllers.firstObject view].tag);
-    self.currentViewController = self.pageController.viewControllers.firstObject;
-    self.pageOffset = 0;
+    self.title = [NSString stringWithFormat:@"page %d", self.pageController.currentViewController.view.tag];
 }
-
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
-    NSLog(@"will trans");
-}
-
-- (void)controllerBecomesTarge:(UIViewController *)controller {
-    self.targetController = controller;
-    NSLog(@"target tag: %d", controller.view.tag);
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f", scrollView.contentOffset.x);
-    if (scrollView.contentOffset.x < 420) {
-        if (self.previousOffset > 600) {
-            // new right page
-            self.pageOffset++;
-        }
-    }
-    if (scrollView.contentOffset.x > 220) {
-        if (self.previousOffset < 100) {
-            // new left page
-            self.pageOffset--;
-        }
-    }
-    self.previousOffset = scrollView.contentOffset.x;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self switchPage:@"dragging"];
-    self.pageSwitched = NO;
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self switchPage:@"dragging"];
-        self.pageSwitched = NO;
-    }
-}
-
-- (void)switchPage:(NSString*)log {
-    NSLog(@"%@", log);
-    NSLog(@"page offset: %d", self.pageOffset);
-    if (!self.pageSwitched) {
-        self.pageSwitched = YES;
-        NSLog(@"finished by %@", log);
-        if (self.pageOffset != 0 && self.pageController.viewControllers.firstObject == self.currentViewController) {
-            UIPageViewControllerNavigationDirection dir = self.currentViewController.view.tag < self.targetController.view.tag ?
-            UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
-            __weak PageViewController *weakSelf = self;
-            [self.pageController setViewControllers:@[self.targetController] direction:dir animated:NO completion:^(BOOL finished) {
-                 NSLog(@"tag: %d, %d", [weakSelf.pageController.viewControllers.firstObject view].tag, weakSelf.targetController.view.tag);
-            }];
-        }
-    }
-    self.currentViewController = self.pageController.viewControllers.firstObject;
-    self.pageOffset = 0;
-        NSLog(@"tag: %d, %d", [self.pageController.viewControllers.firstObject view].tag, self.targetController.view.tag);
-}
-
 @end
