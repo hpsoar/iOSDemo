@@ -29,6 +29,7 @@
 		1234546A194A8E4D00E9170F /* MathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 12345464194A8E4D00E9170F /* MathUtils.m */; };
 		123822361950280E00C97766 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123822351950280E00C97766 /* PageViewController.m */; };
 		1238223C1951278E00C97766 /* CYPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1238223B1951278E00C97766 /* CYPageViewController.m */; };
+		1238223F1951445E00C97766 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1238223E1951445E00C97766 /* ScrollViewController.m */; };
 		1287296C194D932500FFA0CD /* ShadowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1287296B194D932500FFA0CD /* ShadowViewController.m */; };
 		1287296F194DA14000FFA0CD /* TableInsetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1287296E194DA14000FFA0CD /* TableInsetViewController.m */; };
 		12B23AC3191605B500BD14B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B23AC2191605B500BD14B6 /* Foundation.framework */; };
@@ -88,6 +89,8 @@
 		123822351950280E00C97766 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		1238223A1951278E00C97766 /* CYPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYPageViewController.h; path = iOSDemo/CYPageViewController.h; sourceTree = "<group>"; };
 		1238223B1951278E00C97766 /* CYPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYPageViewController.m; path = iOSDemo/CYPageViewController.m; sourceTree = "<group>"; };
+		1238223D1951445E00C97766 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollViewController.h; path = iOSDemo/ScrollViewController.h; sourceTree = "<group>"; };
+		1238223E1951445E00C97766 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollViewController.m; path = iOSDemo/ScrollViewController.m; sourceTree = "<group>"; };
 		1287296A194D932500FFA0CD /* ShadowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowViewController.h; sourceTree = "<group>"; };
 		1287296B194D932500FFA0CD /* ShadowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowViewController.m; sourceTree = "<group>"; };
 		1287296D194DA14000FFA0CD /* TableInsetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableInsetViewController.h; path = iOSDemo/TableInsetViewController.h; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 		12B23AB6191605B500BD14B6 = {
 			isa = PBXGroup;
 			children = (
+				1238223D1951445E00C97766 /* ScrollViewController.h */,
+				1238223E1951445E00C97766 /* ScrollViewController.m */,
 				1238223A1951278E00C97766 /* CYPageViewController.h */,
 				1238223B1951278E00C97766 /* CYPageViewController.m */,
 				1287296D194DA14000FFA0CD /* TableInsetViewController.h */,
@@ -370,6 +375,7 @@
 				12345468194A8E4D00E9170F /* ChunyuPedometer.m in Sources */,
 				12345469194A8E4D00E9170F /* LocalMinMaxQueue.m in Sources */,
 				1287296C194D932500FFA0CD /* ShadowViewController.m in Sources */,
+				1238223F1951445E00C97766 /* ScrollViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 #import "ShadowViewController.h"
 #import "TableInsetViewController.h"
 #import "PageViewController.h"
+#import "ScrollViewController.h"
 
 @interface ViewController ()
 
@@ -57,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -92,6 +93,10 @@
             break;
         case 7:
             cell.textLabel.text = @"page view";
+            break;
+        case 8:
+            cell.textLabel.text = @"scroll view";
+            break;
         default:
             break;
     }
@@ -129,6 +134,8 @@
         case 7:
             return [PageViewController new];
             break;
+        case 8:
+            return [ScrollViewController new];
         default:
             break;
     }
