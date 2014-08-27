@@ -16,6 +16,11 @@
 #import "TableInsetViewController.h"
 #import "PageViewController.h"
 #import "ScrollViewController.h"
+#import "FlipViewController.h"
+#import "ShareSDKViewController.h"
+#import "SplitViewController.h"
+#import "CollectionViewControllerDemo.h"
+#import "CustomPageViewController.h"
 
 @interface ViewController ()
 
@@ -42,6 +47,18 @@
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadData];
+}
+
 - (void)test:(id)sender {
 }
 
@@ -58,7 +75,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 9;
+    return 14;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,36 +86,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Extendable Gradient View";
-            break;
-        case 1:
-            cell.textLabel.text = @"Animated Circle";
-            break;
-        case 2:
-            cell.textLabel.text = @"Accelerometer & locationManager";
-            break;
-        case 3:
-            cell.textLabel.text = @"Pedometer Test";
-            break;
-        case 4:
-            cell.textLabel.text = @"AltitudeViewController";
-            break;
-        case 5:
-            cell.textLabel.text = @"Shadow";
-            break;
-        case 6:
-            cell.textLabel.text = @"TableInset";
-            break;
-        case 7:
-            cell.textLabel.text = @"page view";
-            break;
-        case 8:
-            cell.textLabel.text = @"scroll view";
-            break;
-        default:
-            break;
+    NSArray *texts = @[ @"Extendable Gradient View",  @"Animated Circle", @"Accelerometer & locationManager", @"Pedometer Test", @"AltitudeViewController", @"Shadow", @"TableInset", @"page view", @"scroll view", @"flip transition", @"ShareSDK", @"split view controller", @"collection view controller", @"custom pageview controller" ];
+    
+    if (indexPath.row < texts.count) {
+        cell.textLabel.text = texts[indexPath.row];
     }
     return cell;
 }
@@ -108,36 +99,9 @@
 }
 
 - (UIViewController *)controllerForRow:(NSInteger)row {
-    switch (row) {
-        case 0:
-            return [[GradientViewController alloc] init];
-            break;
-            
-        case 1:
-            return [[AnimatedCircleViewController alloc] init];
-            break;
-        case 2:
-            return self.accelerometerController;
-            break;
-        case 3:
-            return [[PedometerTestController alloc] init];
-            break;
-        case 4:
-            return [AltitudeViewController new];
-            break;
-        case 5:
-            return [ShadowViewController new];
-            break;
-        case 6:
-            return [TableInsetViewController new];
-            break;
-        case 7:
-            return [PageViewController new];
-            break;
-        case 8:
-            return [ScrollViewController new];
-        default:
-            break;
+    NSArray *controllers = @[ [GradientViewController new], [AnimatedCircleViewController new],  self.accelerometerController, [PedometerTestController new], [AltitudeViewController new], [ShadowViewController new], [TableInsetViewController new], [PageViewController new], [ScrollViewController new], [FlipViewController new], [ShareSDKViewController new], [SplitViewController new], [CollectionViewControllerDemo new], [CustomPageViewController new]];
+    if (row < controllers.count) {
+        return controllers[row];
     }
     return nil;
 }
