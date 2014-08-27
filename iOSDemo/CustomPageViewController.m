@@ -12,7 +12,7 @@
 
 @property (nonatomic) NSInteger direction;
 
-- (id)initWithDirection:(NSInteger)direction;
+- (id)initWithDirection:(NSInteger)direction index:(NSInteger)index;
 
 - (void)updateWithOffset:(CGFloat)offset;
 
@@ -25,10 +25,11 @@
     UIView *_dummyView;
 }
 
-- (id)initWithDirection:(NSInteger)direction {
+- (id)initWithDirection:(NSInteger)direction index:(NSInteger)index {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _direction = direction;
+        _index = index;
     }
     return self;
 }
@@ -58,23 +59,17 @@
 }
 
 - (UIView *)createView {
-    static NSInteger i = 0;
-    
     UIView *v = [[UIView alloc] initWithFrame:self.view.bounds];
     v.layer.borderColor = [UIColor redColor].CGColor;
     v.layer.borderWidth = 1;
     
     UILabel *label = [[UILabel alloc] initWithFrame:v.bounds];
     [v addSubview:label];
-    label.text = [NSString stringWithFormat:@"%ld label", (long)i];
+    label.text = [NSString stringWithFormat:@"%ld label", (long)self.index];
     label.font = [UIFont systemFontOfSize:80];
     label.textAlignment = NSTextAlignmentCenter;
     
-    NSLog(@"%d", i);
-    
-    _index = i;
-    
-    i++;
+    NSLog(@"%d", self.index);
     
     return v;
 }
@@ -192,7 +187,6 @@
     CGRect frame = self.containerView.frame;
     frame.size.width = _viewControllers.count * self.scrollView.frame.size.width;
     self.containerView.frame = frame;
-    self.scrollView.contentSize = frame.size;
     
     self.containerView.backgroundColor = [UIColor grayColor];
     
@@ -225,6 +219,7 @@
  
  */
 - (void)updateContent:(CGFloat)direction finished:(BOOL)finished {
+    BOOL layoutChanged = NO;
     {
         NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
     
@@ -242,6 +237,7 @@
         if (offset <= selectedViewX - self.scrollView.frame.size.width) {
             // select left
             NSLog(@"left");
+            layoutChanged = YES;
             self.currentViewController = previous;
             if ([self.delegate respondsToSelector:@selector(pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:)]) {
                 [self.delegate pageViewController:nil
@@ -253,6 +249,7 @@
         else if (offset >= selectedViewX + self.scrollView.frame.size.width) {
             // select right
             NSLog(@"right");
+            layoutChanged = YES;
             self.currentViewController = next;
             if ([self.delegate respondsToSelector:@selector(pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:)]) {
                 [self.delegate pageViewController:nil
@@ -282,6 +279,7 @@
         if (rightCount < 2) {
             UIViewController *controller = [self controllerWithDirection:direction];
             if (controller) {
+                layoutChanged = YES;
                 [_viewControllers addObject:controller];
                 [self.containerView addSubview:controller.view];
             }
@@ -291,6 +289,7 @@
         if (leftCount < 2) {
             UIViewController *controller = [self controllerWithDirection:direction];
             if (controller) {
+                layoutChanged = YES;
                 [_viewControllers insertObject:controller atIndex:0];
                 [self.containerView addSubview:controller.view];
                 add += 320;
@@ -299,45 +298,47 @@
     }
     
     while (leftCount > 2) {
+        layoutChanged = YES;
         [self popFront];
         --leftCount;
         add -= 320;
     }
     
     while (rightCount > 2) {
+        layoutChanged = YES;
         [self popBack];
         --rightCount;
     }
 
-    
-    [self updatePageLayout];
-    {
+    if (layoutChanged) {
+        [self updatePageLayout];
+        
         NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
         self.previousOffset = index * self.scrollView.frame.size.width;
-        //self.scrollView.contentOffset = CGPointMake(self.previousOffset + direction, 0);
-    }
-    
-    if (add != 0) {
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + add, 0);
+        
+        if (add != 0) {
+            self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + add, 0);
+        }
+        self.scrollView.contentSize = self.containerView.frame.size;
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self updateContent:scrollView.contentOffset.x - self.previousOffset finished:YES];
+    //[self updateContent:scrollView.contentOffset.x - self.previousOffset finished:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateContent:scrollView.contentOffset.x - self.previousOffset finished:NO];
-//    [self updateWithOffset:scrollView.contentOffset.x];
     
     [self.scrollViewDelegate scrollViewDidScroll:scrollView];
 }
+
 - (UIViewController *)controllerWithDirection:(NSInteger)direction {
     if (direction > 0) {
-        return [self.dataSource pageViewController:nil viewControllerAfterViewController:self.currentViewController];
+        return [self.dataSource pageViewController:nil viewControllerAfterViewController:self.viewControllers.lastObject];
     }
     else if (direction < 0) {
-        return [self.dataSource pageViewController:nil viewControllerBeforeViewController:self.currentViewController];
+        return [self.dataSource pageViewController:nil viewControllerBeforeViewController:self.viewControllers.firstObject];
     }
     return nil;
 }
@@ -358,15 +359,24 @@
     
     [self.view addSubview:_pvc.view];
     
-    _pvc.viewControllers = @[ [[MyViewController2 alloc] initWithDirection:0] ];
+    _pvc.viewControllers = @[ [[MyViewController2 alloc] initWithDirection:0 index:0] ];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    return [[MyViewController2 alloc] initWithDirection:1];
+    MyViewController2 *vc = (MyViewController2 *)viewController;
+    if (vc.index > 10) {
+        return nil;
+    }
+    return [[MyViewController2 alloc] initWithDirection:1 index: vc.index + 1];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    return [[MyViewController2 alloc] initWithDirection:-1];
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(UIViewController *)viewController {
+    MyViewController2 *vc = (MyViewController2 *)viewController;
+    if (vc.index < -10) {
+        return nil;
+    }
+    return [[MyViewController2 alloc] initWithDirection:1 index: vc.index - 1];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -391,6 +401,7 @@
 
 - (void)updateWithOffset:(CGFloat)offset {
     NSInteger index = [_pvc.viewControllers indexOfObject:_pvc.currentViewController];
+    NSLog(@"--------%f, %d", offset, index);
     for (int i = MAX(0, index - 1); i <= MIN(index + 1, _pvc.viewControllers.count - 1); ++i) {
         MyViewController2 *controller = _pvc.viewControllers[i];
         [controller updateWithOffset:offset - index * 320];
