@@ -10,4 +10,14 @@
 
 @interface CustomPageViewController : UIViewController
 
+@property (nonatomic, weak) id<UIPageViewControllerDataSource> dataSource;
+@property (nonatomic, weak) id<UIPageViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
+
+@property (nonatomic, strong) UIViewController *currentViewController;
+
+@end
+
+@interface CustomPageViewController2 : UIViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate>
+
 @end

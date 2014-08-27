@@ -99,7 +99,7 @@
 }
 
 - (UIViewController *)controllerForRow:(NSInteger)row {
-    NSArray *controllers = @[ [GradientViewController new], [AnimatedCircleViewController new],  self.accelerometerController, [PedometerTestController new], [AltitudeViewController new], [ShadowViewController new], [TableInsetViewController new], [PageViewController new], [ScrollViewController new], [FlipViewController new], [ShareSDKViewController new], [SplitViewController new], [CollectionViewControllerDemo new], [CustomPageViewController new]];
+    NSArray *controllers = @[ [GradientViewController new], [AnimatedCircleViewController new],  self.accelerometerController, [PedometerTestController new], [AltitudeViewController new], [ShadowViewController new], [TableInsetViewController new], [PageViewController new], [ScrollViewController new], [FlipViewController new], [ShareSDKViewController new], [SplitViewController new], [CollectionViewControllerDemo new], [CustomPageViewController2 new]];
     if (row < controllers.count) {
         return controllers[row];
     }
