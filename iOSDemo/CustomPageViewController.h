@@ -15,6 +15,7 @@
 @property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
 
 @property (nonatomic, strong) UIViewController *currentViewController;
+@property (nonatomic, strong) NSArray *viewControllers;
 
 @end
 

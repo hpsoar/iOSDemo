@@ -125,8 +125,6 @@
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic) CGFloat previousOffset;
 
-@property (nonatomic, strong) NSArray *viewControllers;
-
 @end
 
 @implementation CustomPageViewController {
@@ -174,6 +172,8 @@
     }
     [_viewControllers removeAllObjects];
     
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    
     self.currentViewController = viewControllers[0];
     
     [_viewControllers addObject:self.currentViewController];
@@ -184,11 +184,11 @@
 }
 
 - (void)updatePageLayout {
+    NIDPRINTMETHODNAME();
+    
     CGRect frame = self.containerView.frame;
     frame.size.width = _viewControllers.count * self.scrollView.frame.size.width;
     self.containerView.frame = frame;
-    
-    self.containerView.backgroundColor = [UIColor grayColor];
     
     // update layout
     frame = self.scrollView.bounds;
@@ -214,30 +214,26 @@
     [self removePageAtIndex:_viewControllers.count - 1];
 }
 
-/*
-  | |
- 
- */
-- (void)updateContent:(CGFloat)direction finished:(BOOL)finished {
-    BOOL layoutChanged = NO;
-    {
-        NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
+- (BOOL)updateSelection:(BOOL)finished {
+    NIDPRINTMETHODNAME();
     
-        CGFloat selectedViewX = self.currentViewController.view.frame.origin.x;
-        CGFloat offset = self.scrollView.contentOffset.x;
-        
-        UIViewController *previous, *next;
-        if (index < _viewControllers.count - 1) {
-            next = _viewControllers[index + 1];
-        }
-        if (index > 0) {
-            previous = _viewControllers[index - 1];
-        }
-
-        if (offset <= selectedViewX - self.scrollView.frame.size.width) {
-            // select left
-            NSLog(@"left");
-            layoutChanged = YES;
+    NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
+    
+    CGFloat selectedViewX = self.currentViewController.view.frame.origin.x;
+    CGFloat offset = self.scrollView.contentOffset.x;
+    
+    UIViewController *previous, *next;
+    if (index < _viewControllers.count - 1) {
+        next = _viewControllers[index + 1];
+    }
+    if (index > 0) {
+        previous = _viewControllers[index - 1];
+    }
+    
+    if (offset <= selectedViewX - self.scrollView.frame.size.width) {
+        // select left
+        NSLog(@"left");
+        if (previous) {
             self.currentViewController = previous;
             if ([self.delegate respondsToSelector:@selector(pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:)]) {
                 [self.delegate pageViewController:nil
@@ -245,11 +241,13 @@
                           previousViewControllers:@[ _viewControllers[index] ]
                               transitionCompleted:YES];
             }
+            return YES;
         }
-        else if (offset >= selectedViewX + self.scrollView.frame.size.width) {
-            // select right
-            NSLog(@"right");
-            layoutChanged = YES;
+    }
+    else if (offset >= selectedViewX + self.scrollView.frame.size.width) {
+        // select right
+        NSLog(@"right");
+        if (next) {
             self.currentViewController = next;
             if ([self.delegate respondsToSelector:@selector(pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:)]) {
                 [self.delegate pageViewController:nil
@@ -257,20 +255,37 @@
                           previousViewControllers:@[ _viewControllers[index] ]
                               transitionCompleted:YES];
             }
+            return YES;
         }
-        else if (offset < selectedViewX) {
-            if ([self.delegate respondsToSelector:@selector(pageViewController:willTransitionToViewControllers:)]) {
+    }
+    else if (offset < selectedViewX) {
+        if ([self.delegate respondsToSelector:@selector(pageViewController:willTransitionToViewControllers:)]) {
+            if (previous) {
                 [self.delegate pageViewController:nil willTransitionToViewControllers:@[ previous ]];
             }
         }
-        else if (offset > selectedViewX) {
-            if ([self.delegate respondsToSelector:@selector(pageViewController:willTransitionToViewControllers:)]) {
+    }
+    else if (offset > selectedViewX) {
+        if ([self.delegate respondsToSelector:@selector(pageViewController:willTransitionToViewControllers:)]) {
+            if (next) {
                 [self.delegate pageViewController:nil willTransitionToViewControllers:@[ next ]];
             }
         }
     }
+    else if (finished) {
+        if ([self.delegate respondsToSelector:@selector(pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:)]) {
+            [self.delegate pageViewController:nil didFinishAnimating:YES previousViewControllers:nil transitionCompleted:YES];
+        }
+    }
+    return NO;
+}
+
+- (BOOL)updatePages:(NSInteger)direction {
+    NIDPRINTMETHODNAME();
     
     // update content
+    BOOL layoutChanged = NO;
+    
     CGFloat add = 0;
     NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
     NSInteger leftCount = index;
@@ -309,6 +324,33 @@
         [self popBack];
         --rightCount;
     }
+    return layoutChanged;
+}
+
+/*
+  | |
+ 
+ */
+- (void)updateContent:(CGFloat)direction finished:(BOOL)finished {
+    if (_containerView.subviews.count == 0) {
+        return;
+    }
+    
+    BOOL layoutChanged = NO;
+    {
+        layoutChanged = [self updateSelection:finished];
+    }
+    
+    CGFloat added = 0.0;
+    {
+        NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
+        BOOL ret = [self updatePages:direction];
+        if (ret) {
+            layoutChanged = YES;
+        }
+        NSInteger index2 = [_viewControllers indexOfObject:self.currentViewController];
+        added = (index2 - index) * 320.0;
+    }
 
     if (layoutChanged) {
         [self updatePageLayout];
@@ -316,15 +358,28 @@
         NSInteger index = [_viewControllers indexOfObject:self.currentViewController];
         self.previousOffset = index * self.scrollView.frame.size.width;
         
-        if (add != 0) {
-            self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + add, 0);
+        if (added) {
+            self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + added, 0);
         }
         self.scrollView.contentSize = self.containerView.frame.size;
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    //[self updateContent:scrollView.contentOffset.x - self.previousOffset finished:YES];
+    [self updateContent:scrollView.contentOffset.x - self.previousOffset finished:YES];
+    if ([self.scrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [self.scrollViewDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self updateContent:scrollView.contentOffset.x - self.previousOffset finished:YES];
+    }
+    
+    if ([self.scrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.scrollViewDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
